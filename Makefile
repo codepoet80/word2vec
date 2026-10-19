@@ -16,3 +16,6 @@ veryclean: clean
 
 build:
 	pushd ${SRC_DIR} && make; popd
+
+explore:
+	./explore.sh

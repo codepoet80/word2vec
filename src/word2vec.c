@@ -348,7 +348,7 @@ void InitNet() {
 
 #ifdef _MSC_VER
   syn0 = _aligned_malloc((long long)vocab_size * layer1_size * sizeof(real), 128);
-#elif defined  linux
+#else
   a = posix_memalign((void **)&syn0, 128, (long long)vocab_size * layer1_size * sizeof(real));
 #endif
 
@@ -356,7 +356,7 @@ void InitNet() {
   if (hs) {
 #ifdef _MSC_VER
 	  syn1 = _aligned_malloc((long long)vocab_size * layer1_size * sizeof(real), 128);
-#elif defined  linux
+#else
 	  a = posix_memalign((void **)&syn1, 128, (long long)vocab_size * layer1_size * sizeof(real));
 #endif    
     if (syn1 == NULL) {printf("Memory allocation failed\n"); exit(1);}
@@ -366,7 +366,7 @@ void InitNet() {
   if (negative>0) {
 #ifdef _MSC_VER
 	  syn1neg = _aligned_malloc((long long)vocab_size * layer1_size * sizeof(real), 128);
-#elif defined  linux
+#else
 	  a = posix_memalign((void **)&syn1neg, 128, (long long)vocab_size * layer1_size * sizeof(real));
 #endif
     
@@ -562,7 +562,7 @@ void *TrainModelThread(void *id) {
   free(neu1e);
 #ifdef _MSC_VER
 _endthreadex(0);
-#elif defined  linux 
+#else
   pthread_exit(NULL);
 #endif
 }
@@ -596,7 +596,7 @@ void TrainModel() {
 		CloseHandle(pt[i]);
 	}
 	free(pt);
-#elif defined  linux 
+#else
   pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
   for (a = 0; a < num_threads; a++) pthread_create(&pt[a], NULL, TrainModelThread, (void *)a);
   for (a = 0; a < num_threads; a++) pthread_join(pt[a], NULL);
