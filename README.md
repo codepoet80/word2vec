@@ -13,7 +13,7 @@ There seems to be a segfault in the compute-accuracy utility.
 
 To get started: 
     
-    cd scripts && ./demo-word.sh
+    ./explore.sh
 
 ------------------------------------------------------
 Original README text follows:
